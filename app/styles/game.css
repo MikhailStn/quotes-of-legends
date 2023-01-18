@@ -183,7 +183,7 @@ video::-webkit-media-controls {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    max-width: 900px;
+    width: 810px;
 }
 
 .champ__info {
@@ -251,12 +251,24 @@ video::-webkit-media-controls {
 }
 
 .play__progress {
-    width: 600px;
+    width: 400px;
     height: 4px;
     appearance: none;
     border-radius: 10px;
     background: linear-gradient(to right, rgb(189, 174, 130) 0%, rgb(189, 174, 130) 0%, rgb(200, 200, 200) 0%, rgb(200, 200, 200) 100%);
     cursor: url('../assets/cursor-pointer.png'), auto;
+}
+
+.timer {
+    font-size: 20px;
+    color: #c0b192;
+    text-shadow: 1px 1px 2px #06192c;
+    margin: 0;
+    width: 25px;
+}
+
+.timer__wrapper {
+    display: flex;
 }
 
 .volume__progress {
@@ -308,7 +320,7 @@ video::-webkit-media-controls {
     border: none;
     background-size: contain;
     background-repeat: no-repeat;
-    margin-left: 40px;
+    margin-left: 15px;
     cursor: url('../assets/cursor-pointer.png'), auto;
 }
 

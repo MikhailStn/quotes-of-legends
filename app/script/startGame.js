@@ -11,11 +11,11 @@ const playVoiceChampBtn = document.getElementById('play-voice-of-champ');
 const volumeBtn = document.querySelector('.volume__btn')
 const rangeVolume = document.querySelector('.volume__progress')
 const btnGoNext = document.querySelector('.button__next')
-const inputRange = document.querySelector('.play__progress')
 const range = document.querySelector('.play__progress')
 const playAgainBtn = document.querySelector('.game__play-again-btn')
 const resultList = document.querySelectorAll('.results__item')
 const resultsCongrats = document.querySelector('.results__gongrats')
+const timer = document.querySelectorAll('.timer')
 
 const updateVol = () => {
     rangeVolume.style.background = `linear-gradient(to right, #bdae82 0%, #bdae82 ${rangeVolume.value}%, #c8c8c8 ${rangeVolume.value}%, #c8c8c8 100%)`;
@@ -103,6 +103,12 @@ if (isRussian == 'true') {
             femaleCharsArr.push(enChamps[i])
         }
     }
+} else {
+    for (let i = 0; i < ruChamps.length; i++) {
+        if (ruChamps[i].option == 'female') {
+            femaleCharsArr.push(ruChamps[i])
+        }
+    }
 }
 
 let maleCharsArr = []
@@ -116,6 +122,12 @@ if (isRussian == 'true') {
     for (let i = 0; i < enChamps.length; i++) {
         if (enChamps[i].option == 'male') {
             maleCharsArr.push(enChamps[i])
+        }
+    }
+} else {
+    for (let i = 0; i < ruChamps.length; i++) {
+        if (ruChamps[i].option == 'male') {
+            maleCharsArr.push(ruChamps[i])
         }
     }
 }
@@ -133,6 +145,12 @@ if (isRussian == 'true') {
             spiritCharsArr.push(enChamps[i])
         }
     }
+} else {
+    for (let i = 0; i < ruChamps.length; i++) {
+        if (ruChamps[i].option == 'spirit') {
+            spiritCharsArr.push(ruChamps[i])
+        }
+    }
 }
 
 let yordleCharsArr = []
@@ -148,7 +166,14 @@ if (isRussian == 'true') {
             yordleCharsArr.push(enChamps[i])
         }
     }
+} else {
+    for (let i = 0; i < ruChamps.length; i++) {
+        if (ruChamps[i].option == 'yordle') {
+            yordleCharsArr.push(ruChamps[i])
+        }
+    }
 }
+
 
 const shuffle = (array) => {
     array.sort(() => Math.random() - 0.5);
@@ -160,12 +185,11 @@ let res = []
 const chooseChampFields = document.querySelectorAll('.choose-champ')
 let voice = document.querySelector('.audio')
 if (voice) {
-    voice.addEventListener('play', () => {playVoiceChampBtn.classList.add('pause')})
+voice.addEventListener('play', () => {playVoiceChampBtn.classList.add('pause'); setInterval(() => {let percent = (voice.currentTime / voice.duration) * 100; range.style.background = `linear-gradient(to right, #bdae82 0%, #bdae82 ${percent}%, #c8c8c8 ${percent}%, #c8c8c8 100%)`; range.value = percent;}, 0); /* setInterval(() => {timer[0].innerHTML = `0${Math.round(voice.currentTime)}`; setTimeout(() => {if (voice.duration == NaN) {timer[2].innerHTML = '00'} else {timer[2].innerHTML = `0${Math.round(voice.duration)}`}}, 100)}, 500) */})
     voice.addEventListener('pause', () => {playVoiceChampBtn.classList.remove('pause')})
-    voice.addEventListener('ended', () => {playVoiceChampBtn.classList.remove('pause')})
-    range.addEventListener('input', () => {voice.currentTime = (voice.duration / 100) * range.value;})
+    voice.addEventListener('ended', () => {playVoiceChampBtn.classList.remove('pause'); range.value = 0})
+    range.addEventListener('input', () => {voice.currentTime = (voice.duration / 100) * range.value; /* timer[0].innerHTML = `0${Math.round(voice.currentTime)}`; if (voice.duration == NaN) {timer[2].innerHTML = '00'} else {timer[2].innerHTML = `0${Math.round(voice.duration)}`}*/})
     voice.addEventListener('ended', () => {if (chooseChampFields[0].style.opacity != 0.9) {let newLvl = new Audio; newLvl.src = './assets/sound/newlevel.mp3'; newLvl.play()}; chooseChampFields.forEach(el => {el.style.opacity = 0.9; el.style.visibility = 'visible'; el.style.transform = 'scale(1.0)'})})
-    setInterval(() => {let percent = (voice.currentTime / voice.duration) * 100; range.style.background = `linear-gradient(to right, #bdae82 0%, #bdae82 ${percent}%, #c8c8c8 ${percent}%, #c8c8c8 100%)`; range.value = percent;}, 20)
     rangeVolume.addEventListener('input', () => {let vol = rangeVolume.value; voice.volume = vol / 100; rangeVolume.style.background = `linear-gradient(to right, #bdae82 0%, #bdae82 ${vol}%, #c8c8c8 ${vol}%, #c8c8c8 100%)`;})
     volumeBtn.addEventListener('click', () => {if (volumeBtn.classList.contains('mute')) {voice.volume = 0} else {voice.volume = rangeVolume.value / 100}})
 }
@@ -175,12 +199,15 @@ const currentLevelSpan = document.querySelector('.current-level')
 const startGame = (champsArr) => {
     moves++
     currentLevelSpan.innerHTML = moves
-    inputRange.value = 0;
+    range.value = 0
+    timer[0].innerHTML = '00'
+    timer[2].innerHTML = '00'
     btnGoNext.classList.add('disabled')
     btnGoNext.setAttribute('disabled', '')
     let copyOfChamps = champsArr.slice(0)
     let currentChamp = getRandomInt(0, copyOfChamps.length)
     voice.setAttribute('src', `${copyOfChamps[currentChamp].champSoundSrc}`)
+    voice.load() 
     voice.play()
     playVoiceChampBtn.addEventListener('click', () => {
         if (!playVoiceChampBtn.classList.contains('pause')) {
@@ -247,8 +274,10 @@ const startGame = (champsArr) => {
         shuffle(currentLevelChamps)
     }
     for (let i = 0; i < chooseChampFields.length; i++) {
-        chooseChampFields[i].setAttribute('src', `${currentLevelChamps[i].splashShortSrc}`)
-        chooseChampFields[i].setAttribute('alt', `${currentLevelChamps[i].champName}`)
+        setTimeout(() => {
+            chooseChampFields[i].setAttribute('src', `${currentLevelChamps[i].splashShortSrc}`)
+            chooseChampFields[i].setAttribute('alt', `${currentLevelChamps[i].champName}`)
+        }, 200)
     }
     res = []
     res.push(copyOfChamps[currentChamp])
@@ -256,10 +285,13 @@ const startGame = (champsArr) => {
     res.push(copyOfChamps)
 }
 
-if (isRussian == 'true' && inputRange) {
+if (isRussian == 'true' && range) {
     startGame(ruChamps)
-} else if (isRussian =='false' && inputRange) {
+} else if (isRussian =='false' && range) {
     startGame(enChamps)
+} else if (range) {
+    isRussian == 'true'
+    startGame(ruChamps)
 }
 
 
@@ -313,6 +345,13 @@ let stepsCounter = 1
 const scoreSpan = document.querySelectorAll('.score__span')
 
 const goNextlevel = () => {
+    range.value = 0
+    /* timer[0].innerHTML = '00'
+    timer[2].innerHTML = '00'
+    if (!voice) {
+        timer[2].innerHTML = '00'
+        range.value = 0
+    } */
     const chooseChampFields = document.querySelectorAll('.choose-champ')
     let copyOfChamps = res[1]
     champName.forEach(el => el.innerHTML = '*****')
@@ -324,10 +363,9 @@ const goNextlevel = () => {
     } else if (isRussian == 'false') {
         champDescription[0].innerHTML = 'Listen to the voice and choose a champion'
     }
-    range.value = 0
     range.style.background = `linear-gradient(to right, #bdae82 0%, #bdae82 0%, #c8c8c8 $0%, #c8c8c8 100%)`
     scoreCounter = 5
-    setTimeout(() => {startGame(copyOfChamps)}, 150)
+    startGame(copyOfChamps)
 }
 
 if (btnGoNext) {
@@ -343,6 +381,8 @@ const focusOnChamp = (event) => {
         champs = ruChamps
     } else if (isRussian == 'false') {
         champs = enChamps
+    } else {
+        champs = ruChamps
     }
     if (target.classList != 'champions__images-wrapper') {
         if (target.getAttribute('alt') == res[0].champName && !target.classList.contains('correct-item')) {
@@ -407,9 +447,9 @@ const focusOnChamp = (event) => {
                         videoBg.classList.add('blur')
                         lastResult = `Score: 100 / 100`
                         if (isRussian == 'true') {
-                            resultsCongrats.innerHTML = 'Поздравляю! Вы завершили игру со счетом 100 / 100'
+                            resultsCongrats.innerHTML = 'Поздравляю! Вы завершили игру на максимальный балл: 100 / 100!'
                         } else if (isRussian == 'false') {
-                            resultsCongrats.innerHTML = 'Congratulations! You completed the game with score: 100 / 100'
+                            resultsCongrats.innerHTML = 'Congratulations! You completed the game with max score: 100 / 100!'
                         }
                         if (resultList[0] == '') {
                             resultList[0].innerHTML = lastResult

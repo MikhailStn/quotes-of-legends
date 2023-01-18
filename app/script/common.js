@@ -40,22 +40,7 @@ const closeResultPageBtn = document.querySelector('.results__close-btn')
 const resBg = document.querySelector('.results__bg')
 
 const openResultPage = () => {
-    resultsPage.classList.add('visible')
-    headerWrapper.classList.add('blur')
-    main.classList.add('blur')
-    videoBg.classList.add('blur')
-}
-
-const closeResultPage = () => {
-    resultsPage.classList.remove('visible')
-    headerWrapper.classList.remove('blur')
-    main.classList.remove('blur')
-    videoBg.classList.remove('blur')
-}
-
-if (closeResultPageBtn) {
-    closeResultPageBtn.addEventListener('click', closeResultPage)
-    resBg.addEventListener('click', closeResultPage)
+    document.location = '../app/results.html'
 }
 
 if (resultsBtn) {
@@ -165,8 +150,6 @@ const galleryWrapper = document.querySelector('.gallery__wrapper')
 const bgGallery = document.querySelector('.gallery__bg')
 const closeGalleryBtn = document.querySelector('.gallery__close-btn')
 const galleryContainer = document.querySelector('.gallery__container')
-
-
 
 const openGalleryPage = () => {
     document.location = '../app/gallery.html'

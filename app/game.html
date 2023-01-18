@@ -81,8 +81,13 @@
                     <div class="player">
                         <button class="play__btn" id="play-voice-of-champ"></button>
                         <input class="play__progress" type="range" value="0" min="0" max="100" step="1">
+                        <div class="timer__wrapper" style="display: none;">
+                            <p class="timer">00</p>
+                            <p class="timer" style="text-align: center;">:</p>
+                            <p class="timer">00</p>
+                        </div>
                         <audio class="audio" preload="auto" src=""></audio>
-                        <button class="volume__btn"></button>
+                        <button class="volume__btn" style="margin-left: 40px;"></button>
                         <input class="volume__progress" type="range" value="100" min="0" max="100" step="1">
                     </div>
                 </div>
@@ -121,6 +126,6 @@
     </main>
     <footer>
     </footer>
-    <script src="../script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
