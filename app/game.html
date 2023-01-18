@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes of Legends ● Game</title>
+    <link rel="stylesheet" href="./styles/game.css">
+    <link rel="icon" href="../app/assets/favicon.png">
+</head>
+<body>
+    <header>
+        <video autoplay muted loop class="background-screen" id="bg-game-screen" src="../app/assets/screens/1.webm"></video>
+        <div class="results__wrapper">
+            <div class="results">
+                <p class="results__gongrats"></p>
+                <h2 class="results__title" data-i18="res">Статистика игр</h2>
+                <ol class="results__list">
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                    <li class="results__item"></li>
+                </ol>
+                <div class="btns__wrapper">
+                    <button class="completed-game__btn game__play-again-btn" data-i18="play">Играть</button>
+                    <button class="completed-game__btn" id="game__start-page-btn" data-i18="to-main">На главную</button>
+                </div>
+            </div>
+            <div class="results__bg"></div>
+        </div>
+        <div class="exit-game__wrapper hidden">
+            <div class="exit-game">
+                <h2 class="exit-game__title" data-i18="quit-game">Покинуть игру? Прогресс будет утерян</h2>
+                <div>
+                    <button class="exit-game__btn start-page-btn" id="game__start-page-btn" data-i18="agree">Ок</button>
+                    <button class="exit-game__btn cancel-btn" data-i18="cancel">Отмена</button>
+                </div>
+            </div>
+            <div class="exit-game-bg"></div>
+        </div>
+        <div class="exit-game__wrapper hidden">
+            <div class="exit-game">
+                <h2 class="exit-game__title" data-i18="quit-game">Покинуть игру? Прогресс будет утерян</h2>
+                <div>
+                    <button class="exit-game__btn result-page-btn" id="game__results-btn" data-i18="agree">Ок</button>
+                    <button class="exit-game__btn cancel-btn" data-i18="cancel">Отмена</button>
+                </div>
+            </div>
+            <div class="exit-game-bg"></div>
+        </div>
+        <div class="wrapper header-wrapper">
+            <nav class="navigation">
+                <ul class="navigation__list">
+                    <li class="navigation__item item__start-page question-btn-main" data-i18="to-main">На главную</li>
+                    <li class="navigation__item item__results-page question-btn-gallery" data-i18="gallery">Галерея</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main">
+        <div class="wrapper wrapper__main">
+            <div class="audioplayer__wrapper">
+                <div class="splash"></div>
+                <div class="champ__info-wrapper">
+                    <div class="champ__info">
+                        <h3 class="champ__name">*****</h3>
+                        <div class="level__wrapper">
+                            <span class="level__span" data-i18="level">Уровень:</span>
+                            <span class="level__span current-level">1</span>
+                            <span class="level__span">/</span>
+                            <span class="level__span">20</span>
+                        </div>
+                        <p class="champ__description" data-i18="listen-champ">Прослушайте цитату и выберите чемпиона</p>
+                    </div>
+                    <div class="player">
+                        <button class="play__btn" id="play-voice-of-champ"></button>
+                        <input class="play__progress" type="range" value="0" min="0" max="100" step="1">
+                        <audio class="audio" preload="auto" src=""></audio>
+                        <button class="volume__btn"></button>
+                        <input class="volume__progress" type="range" value="100" min="0" max="100" step="1">
+                    </div>
+                </div>
+            </div>
+            <div class="champions__container">
+                <div class="champions__images-wrapper">
+                    <img class="choose-champ" src="" width="150px">
+                    <img class="choose-champ" src="" width="150px">
+                    <img class="choose-champ" src="" width="150px">
+                    <img class="choose-champ" src="" width="150px">
+                    <img class="choose-champ" src="" width="150px">
+                    <img class="choose-champ" src="" width="150px">
+                </div>
+                <div class="champ__info-aside">
+                    <h3 class="champ__name" style="font-size: 20px;">*****</h3>
+                    <p class="champ__description" style="font-size: 14px;"></p>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="controls__bg-sound">
+                    <p class="button__bg-sound" data-i18="bg-music">Фон:</p>
+                    <div class="input__bg-sound-wrapper">
+                        <button class="button-volume__bg-sound mute"></button>
+                        <input class="input__bg-sound" type="range" value="0" min="0" max="100" step="1">
+                    </div>
+                </div>
+                <div class="score">
+                    <span class="score__span" data-i18="score">Счет: </span>
+                    <span class="score__span">0</span>
+                    <span class="score__span">/</span>
+                    <span class="score__span">100</span>
+                </div>
+                <button type="button" class="button__next disabled" disabled="true" data-i18="next">Дальше</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+</html>

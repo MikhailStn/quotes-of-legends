@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "webpack": "^5.75.0"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack --watch"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.10.0"
+  },
+  "type": "module"
+}
